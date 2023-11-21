@@ -1,0 +1,112 @@
+h1 {
+  text-align: center;
+}
+
+#serch {
+  border-radius: 16px;
+  border: none;
+  padding: 6px 16px;
+  outline: none;
+}
+
+button {
+  border-radius: 16px;
+  border: none;
+  padding: 6px 10px;
+}
+
+button:hover {
+  background-color: #ff7fff;
+  color: #fff;
+  cursor: pointer;
+}
+
+#flame-row {
+  display: flex;
+}
+
+#card-flame {
+  flex: 1;
+  background-color: #c6ffe2;
+  width: 400px;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 8px;
+}
+
+.headers {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px;
+  margin-top: 0px;
+}
+
+#card-aria {
+  overflow: auto;
+  height: 400px;
+}
+
+.note-cards {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0px 8px;
+  margin: 8px;
+  margin-top: 0px;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+}
+.note-cards h2 {
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.note-cards p {
+  text-align: right;
+}
+
+#text-flame {
+  flex: 1;
+  background-color: #ffffe0;
+  /* width: 400px; */
+  padding: 8px;
+  margin: 8px;
+  border-radius: 8px;
+}
+
+.active {
+  background-color: #eee;
+}
+
+#text-aria {
+  background-color: #fff;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#textTitle {
+  font-weight: bold;
+  border: none;
+  width: 100%;
+  font-size: 120%;
+}
+#textContent {
+  width: 100%;
+  border: none;
+  height: 300px;
+}
+
+#textTitle:focus,
+#textContent:focus {
+  background-color: rgb(250, 250, 250);
+  outline: none;
+}
