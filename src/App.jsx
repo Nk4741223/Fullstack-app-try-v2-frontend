@@ -11,13 +11,13 @@ export const App = () => {
   const [cards, setCards] = useState([]);
   const [text, setText] = useState({ title: "", content: "" });
   const [activeCardId, setActiveCardId] = useState(false);
+  const HEROKU_PORT =
+    "https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/";
+  const LOCAL_PORT = "http://localhost:5000/api/cards/";
 
   //カード全体を取得ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
   const getCards = async () => {
-    const response = await axios.get(
-      "https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards" ||
-        "http://localhost:5000/api/cards"
-    );
+    const response = await axios.get(HEROKU_PORT || LOCAL_PORT);
     setCards(response.data);
   };
 
@@ -32,14 +32,10 @@ export const App = () => {
       await savePreviousCard(); //以前のカードを保存
 
       //DBに新規作成
-      const response = await axios.post(
-        "https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards" ||
-          `http://localhost:5000/api/cards`,
-        {
-          title: "",
-          content: "",
-        }
-      );
+      const response = await axios.post(HEROKU_PORT || LOCAL_PORT, {
+        title: "",
+        content: "",
+      });
 
       setActiveCardId(response.data._id); //新規カードをアクティブ化
       updateText(); //テキスト初期化
@@ -69,10 +65,7 @@ export const App = () => {
       clearTimer();
 
       //DBから削除
-      await axios.delete(
-        `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${activeCardId}` ||
-          `http://localhost:5000/api/cards/${activeCardId}`
-      );
+      await axios.delete((HEROKU_PORT || LOCAL_PORT) + activeCardId);
 
       //次のカードをアクティブにする
       const ActiveCardIndex = cards.findIndex(
@@ -86,10 +79,7 @@ export const App = () => {
 
         //DBからアクティブカードを取得
         const activeCard = await axios.get(
-          `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${
-            cards[ActiveCardIndex + 1]._id
-          }` ||
-            `http://localhost:5000/api/cards/${cards[ActiveCardIndex + 1]._id}`
+          (HEROKU_PORT || LOCAL_PORT) + cards[ActiveCardIndex + 1]._id
         );
         updateText(activeCard); //テキスト更新
       }
@@ -107,10 +97,7 @@ export const App = () => {
       setActiveCardId(cardId); //クリックしたカードをアクティブ化
 
       //アクティブカードを取得
-      const activeCard = await axios.get(
-        `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${cardId}` ||
-          `http://localhost:5000/api/cards/${cardId}`
-      );
+      const activeCard = await axios.get((HEROKU_PORT || LOCAL_PORT) + cardId);
       updateText(activeCard); //テキスト更新
       getCards(); //更新して表示
     } catch (err) {
@@ -125,22 +112,17 @@ export const App = () => {
 
       //１つ前のアクティブカードを取得
       const previousCard = await axios.get(
-        `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${activeCardId}` ||
-          `http://localhost:5000/api/cards/${activeCardId}`
+        (HEROKU_PORT || LOCAL_PORT) + activeCardId
       );
       //変更があれば、１つ前のアクティブカードをDBに保存
       if (
         previousCard.data.title !== text.title ||
         previousCard.data.content !== text.content
       ) {
-        await axios.put(
-          `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${activeCardId}` ||
-            `http://localhost:5000/api/cards/${activeCardId}`,
-          {
-            title: text.title,
-            content: text.content,
-          }
-        );
+        await axios.put((HEROKU_PORT || LOCAL_PORT) + activeCardId, {
+          title: text.title,
+          content: text.content,
+        });
       }
     }
   };
@@ -184,14 +166,10 @@ export const App = () => {
       const newTimeoutId = setTimeout(async () => {
         try {
           //DB保存
-          await axios.put(
-            `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${activeCardId}` ||
-              `http://localhost:5000/api/cards/${activeCardId}`,
-            {
-              title: text.title,
-              content: text.content,
-            }
-          );
+          await axios.put((HEROKU_PORT || LOCAL_PORT) + activeCardId, {
+            title: text.title,
+            content: text.content,
+          });
           setSavedFlag(true);
           //更新して表示
           getCards();
