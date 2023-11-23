@@ -32,10 +32,14 @@ export const App = () => {
       await savePreviousCard(); //以前のカードを保存
 
       //DBに新規作成
-      const response = await axios.post(`http://localhost:5000/api/cards`, {
-        title: "",
-        content: "",
-      });
+      const response = await axios.post(
+        "https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards" ||
+          `http://localhost:5000/api/cards`,
+        {
+          title: "",
+          content: "",
+        }
+      );
 
       setActiveCardId(response.data._id); //新規カードをアクティブ化
       updateText(); //テキスト初期化
@@ -65,7 +69,10 @@ export const App = () => {
       clearTimer();
 
       //DBから削除
-      await axios.delete(`http://localhost:5000/api/cards/${activeCardId}`);
+      await axios.delete(
+        `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${activeCardId}` ||
+          `http://localhost:5000/api/cards/${activeCardId}`
+      );
 
       //次のカードをアクティブにする
       const ActiveCardIndex = cards.findIndex(
@@ -79,7 +86,10 @@ export const App = () => {
 
         //DBからアクティブカードを取得
         const activeCard = await axios.get(
-          `http://localhost:5000/api/cards/${cards[ActiveCardIndex + 1]._id}`
+          `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${
+            cards[ActiveCardIndex + 1]._id
+          }` ||
+            `http://localhost:5000/api/cards/${cards[ActiveCardIndex + 1]._id}`
         );
         updateText(activeCard); //テキスト更新
       }
@@ -98,7 +108,8 @@ export const App = () => {
 
       //アクティブカードを取得
       const activeCard = await axios.get(
-        `http://localhost:5000/api/cards/${cardId}`
+        `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${cardId}` ||
+          `http://localhost:5000/api/cards/${cardId}`
       );
       updateText(activeCard); //テキスト更新
       getCards(); //更新して表示
@@ -121,10 +132,14 @@ export const App = () => {
         previousCard.data.title !== text.title ||
         previousCard.data.content !== text.content
       ) {
-        await axios.put(`http://localhost:5000/api/cards/${activeCardId}`, {
-          title: text.title,
-          content: text.content,
-        });
+        await axios.put(
+          `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${activeCardId}` ||
+            `http://localhost:5000/api/cards/${activeCardId}`,
+          {
+            title: text.title,
+            content: text.content,
+          }
+        );
       }
     }
   };
@@ -168,10 +183,14 @@ export const App = () => {
       const newTimeoutId = setTimeout(async () => {
         try {
           //DB保存
-          await axios.put(`http://localhost:5000/api/cards/${activeCardId}`, {
-            title: text.title,
-            content: text.content,
-          });
+          await axios.put(
+            `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${activeCardId}` ||
+              `http://localhost:5000/api/cards/${activeCardId}`,
+            {
+              title: text.title,
+              content: text.content,
+            }
+          );
           setSavedFlag(true);
           //更新して表示
           getCards();
