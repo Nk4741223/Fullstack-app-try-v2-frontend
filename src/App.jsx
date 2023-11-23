@@ -14,7 +14,10 @@ export const App = () => {
 
   //カード全体を取得ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
   const getCards = async () => {
-    const response = await axios.get("http://localhost:5000/api/cards");
+    const response = await axios.get(
+      "https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards" ||
+        "http://localhost:5000/api/cards"
+    );
     setCards(response.data);
   };
 
