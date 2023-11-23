@@ -125,7 +125,8 @@ export const App = () => {
 
       //１つ前のアクティブカードを取得
       const previousCard = await axios.get(
-        `http://localhost:5000/api/cards/${activeCardId}`
+        `https://fullstack-app-try-v2-backend-502e5d8bbc87.herokuapp.com/api/cards/${activeCardId}` ||
+          `http://localhost:5000/api/cards/${activeCardId}`
       );
       //変更があれば、１つ前のアクティブカードをDBに保存
       if (
