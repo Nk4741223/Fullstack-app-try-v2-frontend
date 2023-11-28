@@ -21,6 +21,19 @@ export const App = () => {
     setCards(response.data);
   };
 
+  // const getCards = async () => {
+  //   try {
+  //     const response = await axios.get(HEROKU_PORT || LOCAL_PORT);
+  //     if (response && response.data) {
+  //       setCards(response.data);
+  //     } else {
+  //       console.error("Invalid response format:", response);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching cards:", error);
+  //   }
+  // };
+
   //初回の表示
   useEffect(() => {
     getCards();

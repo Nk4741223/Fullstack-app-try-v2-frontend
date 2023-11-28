@@ -12,6 +12,7 @@ export const CardAria = (props) => {
               card._id === activeCardId ? "note-cards active" : "note-cards"
             }
             onClick={() => onClickCard(card._id)}
+            data-testid={`card-${card._id}`}
           >
             <h2>{card.title}</h2>
             <p>
