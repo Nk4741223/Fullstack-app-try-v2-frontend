@@ -19,25 +19,24 @@ export const App = () => {
   const getCards = async () => {
     const response = await axios.get(HEROKU_PORT || LOCAL_PORT);
     setCards(response.data);
+    setSerchInput("");
   };
-
-  // const getCards = async () => {
-  //   try {
-  //     const response = await axios.get(HEROKU_PORT || LOCAL_PORT);
-  //     if (response && response.data) {
-  //       setCards(response.data);
-  //     } else {
-  //       console.error("Invalid response format:", response);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching cards:", error);
-  //   }
-  // };
 
   //初回の表示
   useEffect(() => {
     getCards();
   }, []);
+
+  //検索機能ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+  const [serchInput, setSerchInput] = useState("");
+  const onChangeInput = async (value) => {
+    setSerchInput(value);
+    //DBから検索
+    const response = await axios.get(
+      (HEROKU_PORT || LOCAL_PORT) + `search/query?q=${value}`
+    );
+    setCards(response.data);
+  };
 
   //カードを追加ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
   const onClickAdd = async () => {
@@ -209,7 +208,13 @@ export const App = () => {
       <h1>Notes</h1>
       <div id="flame-row">
         <div id="card-flame">
-          <CardHeader onClick={onClickAdd} />
+          <CardHeader
+            // ref={ref}
+            // handleSerch={handleSerch}
+            serchInput={serchInput}
+            onChangeInput={onChangeInput}
+            onClick={onClickAdd}
+          />
           <CardAria
             cards={cards}
             onClickCard={onClickCard}

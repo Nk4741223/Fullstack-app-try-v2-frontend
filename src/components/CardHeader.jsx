@@ -1,10 +1,15 @@
 import React from "react";
 
 export const CardHeader = (props) => {
-  const { onClick } = props;
+  const { onChangeInput, onClick, serchInput } = props;
   return (
     <div id="card-header" className="headers">
-      <input id="serch" placeholder="serch" />
+      <input
+        value={serchInput}
+        id="serch"
+        placeholder="serch"
+        onChange={(e) => onChangeInput(e.target.value)}
+      />
       <button onClick={onClick}>＋</button>
     </div>
   );
